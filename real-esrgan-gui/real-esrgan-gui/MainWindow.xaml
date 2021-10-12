@@ -24,18 +24,24 @@
 	                CloseButtonContent="Got it!">
                 </TeachingTip>
             </Grid>
-            <TextBlock x:Name="textBlock" Text="{x:Bind textBlockText, Mode=OneWay}"/>
+        
             <Grid>
-                <Image x:Name="outputImage" Height="400" Margin="32" Source="{x:Bind outputBitmapImage, Mode=OneWay}"/>
+                <Image x:Name="outputImage" Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+output"/>
             </Grid>
         </StackPanel>
         <StackPanel>
-            <ProgressBar 
+            <TextBlock x:Name="textBlock" Text="{x:Bind textBlockText, Mode=OneWay}"/>
+            <!--<ProgressBar 
                 x:Name="progressBar" 
                 Margin="64 32 64 32" 
                 Value="{x:Bind progressValue, Mode=OneWay}" 
                 IsIndeterminate="{x:Bind IsProgressIndermediate, Mode=OneWay}"
                 ShowError="{x:Bind progressBarShowError, Mode=OneWay}"
+                />-->
+            <ProgressBar 
+                x:Name="progressBar" 
+                Margin="64 32 64 32" 
+                Value="50"
                 />
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">

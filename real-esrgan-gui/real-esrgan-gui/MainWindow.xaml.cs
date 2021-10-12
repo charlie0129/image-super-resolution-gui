@@ -110,7 +110,7 @@ public struct RECT
                     // tipsHeight.Bottom = getWindowHeight() / 2;
                     fileTypeErrorTip.IsOpen = true;
                 }
-              
+
             }
         }
 
@@ -136,23 +136,23 @@ public struct RECT
             //outputImage.Source = new BitmapImage(new Uri(this.outputImagePath));
         }
 
-        private async void StratConverting()
+        private void StratConverting()
         {
-            IsStartButtonEnabled = false;
-            //startConvertButton.IsEnabled = false;
-            IsProgressIndermediate = true;
-            //progressBar.IsIndeterminate = true;
-            progressValue = 0;
-            //progressBar.Value = 0;
-            progressBarShowError = false;
-            //progressBar.ShowError = false;
+            //IsStartButtonEnabled = false;
+            startConvertButton.IsEnabled = false;
+            //IsProgressIndermediate = true;
+            progressBar.IsIndeterminate = true;
+            //progressValue = 0;
+            progressBar.Value = 0;
+            //progressBarShowError = false;
+            progressBar.ShowError = false;
 
             //* Create your Process
             Process process = new Process();
             process.StartInfo.WorkingDirectory = "C:\\Users\\Charlie\\Downloads\\realesrgan-ncnn-vulkan-20210901-windows";
             process.StartInfo.FileName = "C:\\Users\\Charlie\\Downloads\\realesrgan-ncnn-vulkan-20210901-windows\\realesrgan-ncnn-vulkan";
 
-            this.outputImagePath = Path.GetTempPath() + Path.GetFileName(this.inputImagePath);
+            this.outputImagePath = Path.GetDirectoryName(this.inputImagePath) + Path.DirectorySeparatorChar + "output" + Path.DirectorySeparatorChar + Path.GetFileName(this.inputImagePath);
 
             process.StartInfo.Arguments = String.Format(
                 "-i {0} -o {1} -n {2}",
@@ -170,41 +170,67 @@ public struct RECT
             process.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
             process.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
 
-            process.Exited += (sender, args) =>
-            {
-                IsStartButtonEnabled = true;
-                //startConvertButton.IsEnabled = true;
-                IsProgressIndermediate = false;
-                //progressBar.IsIndeterminate = false;
-                if (process.ExitCode != 0)
-                {
-                    progressBarShowError = true;
-                }
-                else
-                {
-                    progressValue = 0;
-                    //this.outputImagePath = tempOutputImagePath;
-                    outputBitmapImage = new BitmapImage(new Uri(this.outputImagePath));
-                }
-                process.Dispose();
-            };
+            //process.Exited += (sender, args) =>
+            //{
+            //    IsStartButtonEnabled = true;
+            //    //startConvertButton.IsEnabled = true;
+            //    IsProgressIndermediate = false;
+            //    //progressBar.IsIndeterminate = false;
+            //    if (process.ExitCode != 0)
+            //    {
+            //        progressBarShowError = true;
+            //    }
+            //    else
+            //    {
+            //        progressValue = 0;
+            //        //this.outputImagePath = tempOutputImagePath;
+            //        outputBitmapImage = new BitmapImage(new Uri(this.outputImagePath));
+            //    }
+            //    process.Dispose();
+            //};
 
             try
             {
-                process.EnableRaisingEvents = true;
+                //process.EnableRaisingEvents = true;
                 process.Start();
+                this.textBlockText = "started";
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
-                await process.WaitForExitAsync();
+                //await process.WaitForExitAsync();
+                process.WaitForExit();
+                this.textBlockText = "finished";
             }
             catch (Exception ex)
             {
-                IsStartButtonEnabled = true;
-                IsProgressIndermediate = false;
-                progressBarShowError = true;
+                //IsStartButtonEnabled = true;
+                startConvertButton.IsEnabled = true;
+                //IsProgressIndermediate = false;
+                progressBar.IsIndeterminate = false;
+                //progressBarShowError = true;
+                progressBar.ShowError = true;
                 return;
             }
-            //* Start process and handlers
+
+
+
+            //IsStartButtonEnabled = true;
+            startConvertButton.IsEnabled = true;
+            //IsProgressIndermediate = false;
+            progressBar.IsIndeterminate = false;
+            if (process.ExitCode != 0)
+            {
+                //progressBarShowError = true;
+                progressBar.ShowError = true;
+            }
+            else
+            {
+                //progressValue = 0;
+                progressBar.Value = 0;
+                //this.outputImagePath = tempOutputImagePath;
+                outputImage.Source = new BitmapImage(new Uri(this.outputImagePath));
+            }
+            process.Dispose();
+
         }
 
         private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
