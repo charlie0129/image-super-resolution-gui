@@ -28,9 +28,11 @@ namespace real_esrgan_gui
             this.InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
-        }
+        public List<string> Models { get; } = new List<string>()
+            {
+                "realesrgan-x4plus",
+                "realesrgan-x4plus-anime",
+                "realesrnet-x4plus"
+            };
     }
 }

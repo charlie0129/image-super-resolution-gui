@@ -7,7 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+input"/>
+            <Image Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+output"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ProgressBar Margin="64 32 64 32" IsIndeterminate="True" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ComboBox 
+                ItemsSource="{x:Bind Models}"
+                Header="选择模型"
+                Width="280"
+                Text="realesrgan-x4plus"
+            />
+        </StackPanel>
     </StackPanel>
 </Window>
