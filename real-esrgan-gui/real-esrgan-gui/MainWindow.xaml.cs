@@ -61,15 +61,6 @@ public struct RECT
     public int Bottom;                        //最下坐标
 }*/
 
-        private bool isImage(String file)
-        {
-            String[] imageSuffix = new string[] { ".jpg", ".png" };
-            for (int i = 0; i < imageSuffix.Length; i++)
-                if (file.EndsWith(imageSuffix[i]))
-                    return true;
-            return false;
-        }
-
         /*private int getWindowHeight()
         {
             IntPtr awin = GetForegroundWindow();
@@ -77,10 +68,6 @@ public struct RECT
             GetWindowRect(awin, ref rect);
             return rect.Bottom - rect.Top;
         }*/
-
-
-        public String textBlockText { get; set; }
-        public int progressValue { get; set; } = 0;
 
 
 
