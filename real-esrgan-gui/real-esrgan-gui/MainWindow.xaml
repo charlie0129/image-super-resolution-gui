@@ -16,7 +16,13 @@
                 DragOver="inputImageGrid_DragOver"
                 DragLeave="inputImageGrid_DragLeave"
             >
-                <Image x:Name="inputImage" Height="400" Margin="32" CanDrag="True" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+input"/>
+                <Image x:Name="inputImage" Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+input"/>
+                <TeachingTip x:Name="fileTypeErrorTip"
+	                Title="Change themes without hassle"
+	                Subtitle="It's easier than ever to see control samples in both light and dark theme!"
+                    PlacementMargin="250"
+	                CloseButtonContent="Got it!">
+                </TeachingTip>
             </Grid>
             <TextBlock x:Name="textBlock" Text="{x:Bind textBlockText, Mode=OneWay}"/>
             <Grid>
@@ -47,5 +53,10 @@
                IsEnabled="{x:Bind IsStartButtonEnabled, Mode=OneWay}"
             />
         </StackPanel>
+
+        
+        
     </StackPanel>
+
+    
 </Window>
