@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -34,5 +35,30 @@ namespace real_esrgan_gui
                 "realesrgan-x4plus-anime",
                 "realesrnet-x4plus"
             };
+
+        private async void inputImageGrid_Drop(object sender, DragEventArgs e)
+        {
+            var inputs = await e.DataView.GetStorageItemsAsync();
+            if (inputs.Count() == 1)
+            {
+                inputImage.Source = new BitmapImage(new Uri(inputs[0].Path.ToString()));
+            }
+        }
+
+        private void inputImageGrid_DragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+
+            if (e.DragUIOverride != null)
+            {
+                e.DragUIOverride.Caption = "选择输入文件";
+                e.DragUIOverride.IsContentVisible = true;
+            }
+        }
+
+        private void inputImageGrid_DragLeave(object sender, DragEventArgs e)
+        {
+
+        }
     }
 }

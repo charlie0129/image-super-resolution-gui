@@ -9,10 +9,21 @@
 
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+input"/>
-            <Image Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+output"/>
+            <Grid 
+                x:Name="inputImageGrid"
+                AllowDrop="True" 
+                Drop="inputImageGrid_Drop"
+                DragOver="inputImageGrid_DragOver"
+                DragLeave="inputImageGrid_DragLeave"
+            >
+                <Image x:Name="inputImage" Height="400" Margin="32" CanDrag="True" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+input"/>
+            </Grid>
+            <TextBlock x:Name="textBlock"/>
+            <Grid>
+                <Image Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+output"/>
+            </Grid>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel>
             <ProgressBar Margin="64 32 64 32" IsIndeterminate="True" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
