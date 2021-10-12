@@ -18,13 +18,19 @@
             >
                 <Image x:Name="inputImage" Height="400" Margin="32" CanDrag="True" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+input"/>
             </Grid>
-            <TextBlock x:Name="textBlock"/>
+            <TextBlock x:Name="textBlock" Text="{x:Bind textBlockText, Mode=OneWay}"/>
             <Grid>
-                <Image Height="400" Margin="32" Source="https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+output"/>
+                <Image x:Name="outputImage" Height="400" Margin="32" Source="{x:Bind outputBitmapImage, Mode=OneWay}"/>
             </Grid>
         </StackPanel>
         <StackPanel>
-            <ProgressBar Margin="64 32 64 32" IsIndeterminate="True" />
+            <ProgressBar 
+                x:Name="progressBar" 
+                Margin="64 32 64 32" 
+                Value="{x:Bind progressValue, Mode=OneWay}" 
+                IsIndeterminate="{x:Bind IsProgressIndermediate, Mode=OneWay}"
+                ShowError="{x:Bind progressBarShowError, Mode=OneWay}"
+                />
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ComboBox 
@@ -32,6 +38,13 @@
                 Header="选择模型"
                 Width="280"
                 Text="realesrgan-x4plus"
+            />
+            <Button 
+                x:Name="startConvertButton" 
+                Style="{StaticResource AccentButtonStyle}" 
+                Content="开始超分辨率！" 
+                Click="startConvertButton_Click"
+               IsEnabled="{x:Bind IsStartButtonEnabled, Mode=OneWay}"
             />
         </StackPanel>
     </StackPanel>

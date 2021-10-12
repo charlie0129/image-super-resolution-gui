@@ -8,11 +8,13 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -24,9 +26,16 @@ namespace real_esrgan_gui
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        public string inputImagePath { get; set; }
+        public string outputImagePath { get; set; }
+        public BitmapImage inputBitmapImage { get; set; }
+        public BitmapImage outputBitmapImage { get; set; } = new BitmapImage(new Uri("https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+output"));
+
         public MainWindow()
         {
             this.InitializeComponent();
+            inputBitmapImage = new BitmapImage(new Uri("https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+input"));
+            outputBitmapImage = new BitmapImage(new Uri("https://dummyimage.com/400x400/333333/fff.png&amp;text=This+is+output"));
         }
 
         public List<string> Models { get; } = new List<string>()
@@ -36,12 +45,21 @@ namespace real_esrgan_gui
                 "realesrnet-x4plus"
             };
 
+        public String textBlockText { get; set; }
+        public int progressValue { get; set; } = 0;
+
+        public bool IsProgressIndermediate { get; set; } = false;
+        public bool IsStartButtonEnabled { get; set; } = true;
+        public bool progressBarShowError { get; set; } = false;
+
+
         private async void inputImageGrid_Drop(object sender, DragEventArgs e)
         {
             var inputs = await e.DataView.GetStorageItemsAsync();
             if (inputs.Count() == 1)
             {
-                inputImage.Source = new BitmapImage(new Uri(inputs[0].Path.ToString()));
+                this.inputImagePath = inputs[0].Path.ToString();
+                inputImage.Source = new BitmapImage(new Uri(this.inputImagePath));
             }
         }
 
@@ -59,6 +77,107 @@ namespace real_esrgan_gui
         private void inputImageGrid_DragLeave(object sender, DragEventArgs e)
         {
 
+        }
+
+        private void startConvertButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.StratConverting();
+            //outputImage.Source = new BitmapImage(new Uri(this.outputImagePath));
+        }
+
+        private async void StratConverting()
+        {
+            IsStartButtonEnabled = false;
+            //startConvertButton.IsEnabled = false;
+            IsProgressIndermediate = true;
+            //progressBar.IsIndeterminate = true;
+            progressValue = 0;
+            //progressBar.Value = 0;
+            progressBarShowError = false;
+            //progressBar.ShowError = false;
+
+            //* Create your Process
+            Process process = new Process();
+            process.StartInfo.WorkingDirectory = "C:\\Users\\Charlie\\Downloads\\realesrgan-ncnn-vulkan-20210901-windows";
+            process.StartInfo.FileName = "C:\\Users\\Charlie\\Downloads\\realesrgan-ncnn-vulkan-20210901-windows\\realesrgan-ncnn-vulkan";
+
+            this.outputImagePath = Path.GetTempPath() + Path.GetFileName(this.inputImagePath);
+
+            process.StartInfo.Arguments = String.Format(
+                "-i {0} -o {1} -n {2}",
+                this.inputImagePath,
+                this.outputImagePath,
+                "realesrgan-x4plus-anime"
+            );
+
+
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            //* Set your output and error (asynchronous) handlers
+            process.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
+            process.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
+
+            process.Exited += (sender, args) =>
+            {
+                IsStartButtonEnabled = true;
+                //startConvertButton.IsEnabled = true;
+                IsProgressIndermediate = false;
+                //progressBar.IsIndeterminate = false;
+                if (process.ExitCode != 0)
+                {
+                    progressBarShowError = true;
+                }
+                else
+                {
+                    progressValue = 0;
+                    //this.outputImagePath = tempOutputImagePath;
+                    outputBitmapImage = new BitmapImage(new Uri(this.outputImagePath));
+                }
+                process.Dispose();
+            };
+
+            try
+            {
+                process.EnableRaisingEvents = true;
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                await process.WaitForExitAsync();
+            }
+            catch (Exception ex)
+            {
+                IsStartButtonEnabled = true;
+                IsProgressIndermediate = false;
+                progressBarShowError = true;
+                return;
+            }
+            //* Start process and handlers
+        }
+
+        private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            //* Do your stuff with the output (write to console/log/StringBuilder)
+            //textBlock.Dispatcher.Invoke(new Action(() =>
+            //{
+
+            //}));
+
+            //myControl.Invoke((Action)delegate
+            //{
+            //    //You can put your UI update logic here
+            //    myControl.Text = "Hello World from a different thread";
+            //});
+
+            this.textBlockText = outLine.Data;
+
+            //await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //{
+            //    textBlock.Text = outLine.Data;
+            //    // Do something on the dispatcher thread
+            //});
+            Console.WriteLine(outLine.Data);
         }
     }
 }
