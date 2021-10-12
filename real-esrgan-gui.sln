@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "real-esrgan-gui (Package)", "real-esrgan-gui\real-esrgan-gui (Package)\real-esrgan-gui (Package).wapproj", "{F02749B0-D400-4EAC-B383-F55BA380FAD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "real-esrgan-gui", "real-esrgan-gui\real-esrgan-gui\real-esrgan-gui.csproj", "{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|arm64 = Debug|arm64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|arm64 = Release|arm64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|arm64.ActiveCfg = Debug|arm64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|arm64.Build.0 = Debug|arm64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|arm64.Deploy.0 = Debug|arm64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|x64.ActiveCfg = Debug|x64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|x64.Build.0 = Debug|x64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|x64.Deploy.0 = Debug|x64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|x86.ActiveCfg = Debug|x86
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|x86.Build.0 = Debug|x86
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Debug|x86.Deploy.0 = Debug|x86
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|arm64.ActiveCfg = Release|arm64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|arm64.Build.0 = Release|arm64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|arm64.Deploy.0 = Release|arm64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|x64.ActiveCfg = Release|x64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|x64.Build.0 = Release|x64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|x64.Deploy.0 = Release|x64
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|x86.ActiveCfg = Release|x86
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|x86.Build.0 = Release|x86
+		{F02749B0-D400-4EAC-B383-F55BA380FAD1}.Release|x86.Deploy.0 = Release|x86
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Debug|arm64.ActiveCfg = Debug|arm64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Debug|arm64.Build.0 = Debug|arm64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Debug|x64.ActiveCfg = Debug|x64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Debug|x64.Build.0 = Debug|x64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Debug|x86.ActiveCfg = Debug|x86
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Debug|x86.Build.0 = Debug|x86
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Release|arm64.ActiveCfg = Release|arm64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Release|arm64.Build.0 = Release|arm64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Release|x64.ActiveCfg = Release|x64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Release|x64.Build.0 = Release|x64
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Release|x86.ActiveCfg = Release|x86
+		{E8449514-1478-4CAC-AEB7-EA6545DA5DF6}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E74CDFC2-7497-4EC6-858F-BCAC2060769B}
+	EndGlobalSection
+EndGlobal
