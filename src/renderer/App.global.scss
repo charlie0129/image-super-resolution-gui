@@ -1,0 +1,107 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import '~ui-neumorphism/dist/index.css';
+@import "./image-compare/index.scss";
+
+body {
+  position: relative;
+  /* color: white; */
+  background: #e4ebf5;
+  /*background: linear-gradient(*/
+  /*  200.96deg,*/
+  /*  #fedc2a -29.09%,*/
+  /*  #dd5789 51.77%,*/
+  /*  #7a2c9e 129.35%*/
+  /*);*/
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+}
+
+
+.row-center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.image-card {
+  max-width: 70vw;
+  max-height: 70vw;
+  margin: 24px;
+}
+
+.image-card-full {
+  width: 70vw;
+  height: 70vw;
+  margin: 0;
+  padding: 0;
+}
+
+.image {
+  border-radius: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* button {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  appearance: none;
+  font-size: 1.3rem;
+  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+  transition: transform ease-in 0.5s;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+} */
+
+/* li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  height: fit-content;
+  width: fit-content;
+  margin: 10px;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.Hello {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+} */
+
+.blur {
+  -webkit-animation: blur 0.5s;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes blur {
+  0% {
+    -webkit-filter: blur(0px);
+  }
+  100% {
+    -webkit-filter: blur(16px);
+  }
+}
