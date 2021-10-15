@@ -38,7 +38,7 @@ const Hello = () => {
   const [isSettingsVisible, setSettingsVisible] = useState<boolean>(
     !pathToBinary
   );
-  const [inputValue, setInputValue] = useState<string>(pathToBinary);
+  const [inputValue, setInputValue] = useState<string>(pathToBinary || "");
   const [progress, setProgress] = useState<number>(0);
   const [model, setModel] = useState<string>(defaultModel || models[1]);
   const [zoomFurther, setZoomFurther] = useState<boolean>(false);
@@ -66,7 +66,7 @@ const Hello = () => {
   }, [model]);
 
   useEffect(() => {
-    if (inputValue) localStorage.setItem("binaryPath", inputValue);
+    if (inputValue || inputValue === "") localStorage.setItem("binaryPath", inputValue);
   }, [inputValue]);
 
   useEffect(() => {
