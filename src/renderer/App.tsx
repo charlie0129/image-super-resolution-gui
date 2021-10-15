@@ -28,10 +28,8 @@ const models = [
 ];
 
 const Hello = () => {
-  let pathToBinary = localStorage.getItem("binaryPath");
-  pathToBinary = pathToBinary || undefined;
-  let defaultModel = localStorage.getItem("defaultModel");
-  defaultModel = defaultModel || undefined;
+  const pathToBinary = localStorage.getItem("binaryPath");
+  const defaultModel = localStorage.getItem("defaultModel");
 
   const [droppedImage, setDroppedImage] = useState<any>();
   const [outputImage, setOutputImage] = useState<string>();
@@ -64,11 +62,11 @@ const Hello = () => {
     });
 
   useEffect(() => {
-    localStorage.setItem("defaultModel", model);
+    if (model) localStorage.setItem("defaultModel", model);
   }, [model]);
 
   useEffect(() => {
-    localStorage.setItem("binaryPath", inputValue);
+    if (inputValue) localStorage.setItem("binaryPath", inputValue);
   }, [inputValue]);
 
   useEffect(() => {
@@ -134,7 +132,6 @@ const Hello = () => {
       setOutputImage(undefined);
     });
     child.killChild();
-
   }, [child]);
 
   const onSave = () => {};
@@ -151,7 +148,7 @@ const Hello = () => {
   );
 
   const [isMouseDown, setMouseDown] = useState<boolean>(false);
-  const [isShowHelp, setShowHelp] = useState<boolean>(false)
+  const [isShowHelp, setShowHelp] = useState<boolean>(false);
 
   return (
     <div>
@@ -161,23 +158,34 @@ const Hello = () => {
 
       <div className="flex-row row-center">
         <Card style={imageCardStyle()} elevation={4}>
-          <div {...(inputValue ? getRootProps({
-            className: "dropzone"
-          }) : {})}
+          <div
+            {...(inputValue
+              ? getRootProps({
+                className: "dropzone"
+              })
+              : {})}
           >
-            {/*{(inputValue && !isCalculating && !isIntermediate) && <input {...getInputProps()} />}*/}
+            {/* {(inputValue && !isCalculating && !isIntermediate) && <input {...getInputProps()} />} */}
             {droppedImage ? (
               outputImage ? (
                 <div
-                  onMouseDown={() => {setMouseDown(true);}}
-                  onMouseUp={() => {setMouseDown(false);}}
-                  onClick={() => {setMouseDown(false);}}
-                  onMouseEnter={() => {setMouseDown(false);}}
+                  onMouseDown={() => {
+                    setMouseDown(true);
+                  }}
+                  onMouseUp={() => {
+                    setMouseDown(false);
+                  }}
+                  onClick={() => {
+                    setMouseDown(false);
+                  }}
+                  onMouseEnter={() => {
+                    setMouseDown(false);
+                  }}
                 >
                   <img
                     style={{
                       ...imageCardStyle(),
-                      zIndex: isMouseDown ? 999: 0,
+                      zIndex: isMouseDown ? 999 : 0,
                       position: "absolute",
                       opacity: isMouseDown ? 1 : 0
                     }}
@@ -296,29 +304,39 @@ const Hello = () => {
 
       {/* <Button onClick={() => {setIntermediate(!isIntermediate); console.log(progress)}}>intermediate</Button> */}
 
-      <div className="flex-row row-center" style={{ marginBottom: 32 }}>
+      <div className="flex-row row-center">
         {isSettingsVisible && (
           <>
             <TextArea
-              append={<a onClick={() => {setShowHelp(!isShowHelp)}}>?</a>}
+              append={
+                <a
+                  color="var(--primary)"
+                  onClick={() => {
+                    setShowHelp(!isShowHelp);
+                  }}
+                >
+                  ?
+                </a>
+              }
               onChange={(e) => {
                 setInputValue(e.value);
               }}
-              value={inputValue}
+              value={inputValue || ""}
               label="Binary Path"
-              hint={
-                isShowHelp
-                  ? 'Real-ESRGAN can be obtained from https://github.com/xinntao/Real-ESRGAN/releases'
-                  : 'Path to Real-ESRGAN directory'
-              }
+              hint={isShowHelp ? "" : "Path to Real-ESRGAN directory"}
               name="Binary Path"
               width={384}
               height={46}
             />
           </>
-
         )}
       </div>
+      {isShowHelp &&
+      <p style={{ color: "#999999", fontSize: 12, textAlign: "center", marginTop: -18 }}>Real-ESRGAN can be obtained
+        from&nbsp;
+        <a target="_blank" href="https://github.com/xinntao/Real-ESRGAN/releases">here</a>
+      </p>}
+      <div style={{ marginBottom: 32 }} />
     </div>
   );
 };
