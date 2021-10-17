@@ -240,7 +240,7 @@ const Hello = () => {
       <ProgressLinear
         style={{ marginTop: 32 }}
         color="var(--primary)"
-        indeterminate={isIntermediate || (isCalculating && progress < 3)}
+        indeterminate={isIntermediate || (isCalculating && progress < 0.5)}
         value={progress}
       />
       <div className="flex-row row-center" style={{ marginTop: 8 }}>
