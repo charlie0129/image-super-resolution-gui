@@ -1,10 +1,14 @@
 # image-super-resolution-gui
 
-## TODO
-- [x] 模型选择下拉菜单
-- [x] 开始计算按钮
-- [x] 进度条，百分比，ETA
-- [x] 输入图片预览
-- [x] 输出图片预览
-- [ ] 输入输出缩放与中心点同步
-- [ ] 按需计算可见部分
+> This app takes advantage of [xinntao/Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN)
+
+## How to use
+
+- Download the installer from [releases](https://github.com/charlie0129/image-super-resolution-gui/releases), install it, and run it.
+- If you start the app for the first time, you will need to fill the path to [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN/releases) directory (where the executable resides). There is a ? icon near the text field, click it to show more info. This operation is only needed once.
+- Drag 'n' drop a image, choose a model (you can guess what model you need by its name), then click SUPER-RESOLUTION! Wait for the results... The calculated image is saved right next to the original image.
+- Optionally, drag out the image to somewhere you need, or use `Zoom further` to display the image 1:1 for better comparison.
+
+## Screenshots
+
+<img src="README.assets\image-20211126134115722.png" width="300px" />
