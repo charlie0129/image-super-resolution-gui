@@ -2,13 +2,11 @@ import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
 import {
   Card,
-  CardContent,
   Button,
   overrideThemeVariables,
   ProgressLinear,
   RadioGroup,
   Radio,
-  ProgressCircular,
   Checkbox,
   TextArea
 } from "ui-neumorphism";
@@ -134,7 +132,7 @@ const Hello = () => {
     child.killChild();
   }, [child]);
 
-  const onSave = () => {};
+  const onSave = () => { };
 
   const imageCardStyle = useCallback(
     (): CSSProperties => ({
@@ -167,7 +165,7 @@ const Hello = () => {
           >
             {/* {(inputValue && !isCalculating && !isIntermediate) && <input {...getInputProps()} />} */}
             {droppedImage ? (
-              outputImage ? (
+              (outputImage) ? (
                 <div
                   onMouseDown={() => {
                     setMouseDown(true);
@@ -212,11 +210,10 @@ const Hello = () => {
                         ...imageCardStyle(),
                         transition:
                           isCalculating || isIntermediate ? "ease-in 0.2s" : "",
-                        filter: `blur(${
-                          isCalculating || isIntermediate
+                        filter: `blur(${isCalculating || isIntermediate
                             ? Math.abs(((100 - progress) * 4) / 25 - 1) // 0 - 16
                             : 0
-                        }px)`
+                          }px)`
                       }}
                       src={droppedImage || ""}
                       alt=""
@@ -332,10 +329,10 @@ const Hello = () => {
         )}
       </div>
       {isShowHelp &&
-      <p style={{ color: "#999999", fontSize: 12, textAlign: "center", marginTop: -18 }}>Real-ESRGAN can be obtained
-        from&nbsp;
-        <a target="_blank" href="https://github.com/xinntao/Real-ESRGAN/releases">here</a>
-      </p>}
+        <p style={{ color: "#999999", fontSize: 12, textAlign: "center", marginTop: -18 }}>Real-ESRGAN can be obtained
+          from&nbsp;
+          <a target="_blank" href="https://github.com/xinntao/Real-ESRGAN/releases">here</a>
+        </p>}
       <div style={{ marginBottom: 32 }} />
     </div>
   );
