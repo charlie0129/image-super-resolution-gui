@@ -1,7 +1,7 @@
 {
   "name": "image-super-resolution-gui",
   "productName": "Image Super-Resolution GUI",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "./dist/main/main.js",
   "scripts": {
