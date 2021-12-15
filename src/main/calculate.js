@@ -60,7 +60,7 @@ const calculateImage = (input, model, normalCallback, errorCallback, finishCallb
   const bin =
     process.platform === "win32"
       ? "realesrgan-ncnn-vulkan.exe"
-      : "realesrgan-ncnn-vulkan";
+      : "./realesrgan-ncnn-vulkan";
 
   const args = ["-i", `"${input}"`, "-o", `"${outputFile}"`, "-n", model];
 
