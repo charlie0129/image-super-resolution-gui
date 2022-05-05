@@ -311,6 +311,7 @@ const Hello = () => {
                   onClick={() => {
                     setShowHelp(!isShowHelp);
                   }}
+                  style={{ userSelect: "none", cursor: "pointer" }}
                 >
                   ?
                 </a>
