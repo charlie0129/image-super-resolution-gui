@@ -8,7 +8,8 @@ import {
   RadioGroup,
   Radio,
   Checkbox,
-  TextArea
+  TextArea,
+  Alert,
 } from "ui-neumorphism";
 
 import "./App.global.scss";
@@ -22,7 +23,7 @@ const path = window.require("path");
 const models = [
   "realesrgan-x4plus",
   "realesrgan-x4plus-anime",
-  "realesrnet-x4plus"
+  "realesrnet-x4plus",
 ];
 
 const Hello = () => {
@@ -41,6 +42,8 @@ const Hello = () => {
   const [model, setModel] = useState<string>(defaultModel || models[1]);
   const [zoomFurther, setZoomFurther] = useState<boolean>(false);
   const [child, setChild] = useState<any>();
+
+  const [warningType, setWarningType] = useState<number>(0);
 
   const onDropAccepted = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -65,6 +68,9 @@ const Hello = () => {
 
   useEffect(() => {
     if (inputValue || inputValue === "") localStorage.setItem("binaryPath", inputValue);
+
+    if (inputValue === "undefined" || !inputValue) setWarningType(1);
+    else setWarningType(0);
   }, [inputValue]);
 
   useEffect(() => {
@@ -89,6 +95,8 @@ const Hello = () => {
   };
 
   const onStart = () => {
+    console.log(pathToBinary);
+
     setOutputImage(undefined);
     setIntermediate(true);
     setCalculating(false);
@@ -240,6 +248,21 @@ const Hello = () => {
         indeterminate={isIntermediate || (isCalculating && progress < 2)}
         value={progress < 3 ? 0 : progress}
       />
+
+      <div className="flex-row row-center">
+        {warningType ? (
+          <>
+            <Alert type="warning">
+              {warningType === 1
+                ? "Path to Real-ESRGAN can not be empty!"
+                : "Other error"}
+            </Alert>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+
       <div className="flex-row row-center" style={{ marginTop: 8 }}>
         <div style={{ width: 240 }}>
           <div style={{ width: 240, textAlign: "left", margin: 8 }}>
