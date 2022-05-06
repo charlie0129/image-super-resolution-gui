@@ -20,15 +20,21 @@ import ImageCompare from "./image-compare/index";
 
 const path = window.require("path");
 
-const models = [
+const imageModels = [
   "realesrgan-x4plus",
   "realesrgan-x4plus-anime",
-  "realesrnet-x4plus",
+];
+
+const videoModels = [
+  "realesr-animevideov3-x2",
+  "realesr-animevideov3-x3",
+  "realesr-animevideov3-x4",
 ];
 
 const Hello = () => {
   const pathToBinary = localStorage.getItem("binaryPath");
-  const defaultModel = localStorage.getItem("defaultModel");
+  const defaultImageModel = localStorage.getItem("defaultImageModel");
+  const defaultVideoModel = localStorage.getItem("defaultVideoModel");
 
   const [droppedImage, setDroppedImage] = useState<any>();
   const [outputImage, setOutputImage] = useState<string>();
@@ -39,7 +45,12 @@ const Hello = () => {
   );
   const [inputValue, setInputValue] = useState<string>(pathToBinary || "");
   const [progress, setProgress] = useState<number>(0);
-  const [model, setModel] = useState<string>(defaultModel || models[1]);
+  const [imageModel, setImageModel] = useState<string>(
+    defaultImageModel || imageModels[1]
+  );
+  const [videoModel, setVideoModel] = useState<string>(
+    defaultVideoModel || videoModels[0]
+  )
   const [zoomFurther, setZoomFurther] = useState<boolean>(false);
   const [child, setChild] = useState<any>();
 
@@ -63,15 +74,19 @@ const Hello = () => {
     });
 
   useEffect(() => {
-    if (model) localStorage.setItem("defaultModel", model);
-  }, [model]);
+    if (imageModel) localStorage.setItem("defaultImageModel", imageModel);
+  }, [imageModel]);
+
+  useEffect(() => {
+    if (videoModel) localStorage.setItem("defaultVideoModel", videoModel);
+  }, [videoModel]);
 
   useEffect(() => {
     if (inputValue || inputValue === "") localStorage.setItem("binaryPath", inputValue);
 
     if (inputValue === "undefined" || !inputValue) setWarningType(1);
     else {
-      const filePath = `${inputValue}\\models\\${model}.bin`;
+      const filePath = `${inputValue}\\models\\${imageModel}.bin`;
 
       fetch(filePath)
         .then(() => setWarningType(0))
@@ -79,7 +94,7 @@ const Hello = () => {
           setWarningType(2);
         });
     }
-  }, [inputValue, model]);
+  }, [inputValue, imageModel]);
 
   useEffect(() => {
     overrideThemeVariables({
@@ -98,8 +113,12 @@ const Hello = () => {
     }).mount();
   }, [outputImage]);
 
-  const onModelsChange = (e) => {
-    setModel(e.value);
+  const onImageModelsChange = (e) => {
+    setImageModel(e.value);
+  };
+
+  const onVideoModelsChange = (e) => {
+    setVideoModel(e.value);
   };
 
   const onStart = () => {
@@ -122,7 +141,7 @@ const Hello = () => {
 
     const childProc = calculateImage(
       droppedImage,
-      model,
+      imageModel,
       recvOutput,
       recvOutput,
       (output) => {
@@ -263,7 +282,7 @@ const Hello = () => {
             <Alert type="warning">
               {warningType === 1
                 ? "Path to Real-ESRGAN can not be empty!"
-                : `${model} not found, does it exist?`}
+                : `${imageModel} not found, does it exist?`}
             </Alert>
           </>
         ) : (
@@ -274,22 +293,40 @@ const Hello = () => {
       <div className="flex-row row-center" style={{ marginTop: 8 }}>
         <div style={{ width: 240 }}>
           <div style={{ width: 240, textAlign: "left", margin: 8 }}>
-            <h3 style={{ color: "#555555" }}>Model:</h3>
+            <h3 style={{ color: "#555555" }}>Image model:</h3>
           </div>
           <div style={{ width: 240 }}>
             <RadioGroup
               disabled={isIntermediate || isCalculating}
               vertical
-              value={model}
+              value={imageModel}
               color="var(--primary)"
-              onChange={onModelsChange}
+              onChange={onImageModelsChange}
             >
-              {models.map((model) => (
+              {imageModels.map((model) => (
                 <Radio key={model} value={model} label={model} />
               ))}
             </RadioGroup>
           </div>
+
+          <div style={{ width: 240, textAlign: "left", margin: 8 }}>
+            <h3 style={{ color: "#555555" }}>Video model:</h3>
+          </div>
+          <div style={{ width: 240 }}>
+            <RadioGroup
+              disabled={isIntermediate || isCalculating}
+              vertical
+              value={videoModel}
+              color="var(--primary)"
+              onChange={onVideoModelsChange}
+            >
+              {videoModels.map((model) => (
+                <Radio key={model} value={model} label={model} disabled />
+              ))}
+            </RadioGroup>
+          </div>
         </div>
+
 
         <div style={{ marginLeft: 32, width: 178 }}>
           <div style={{ width: 178 }}>
@@ -328,6 +365,7 @@ const Hello = () => {
             />
           </div>
         </div>
+
       </div>
 
       {/* <Button onClick={() => {setIntermediate(!isIntermediate); console.log(progress)}}>intermediate</Button> */}
