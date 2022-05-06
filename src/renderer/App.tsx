@@ -70,8 +70,16 @@ const Hello = () => {
     if (inputValue || inputValue === "") localStorage.setItem("binaryPath", inputValue);
 
     if (inputValue === "undefined" || !inputValue) setWarningType(1);
-    else setWarningType(0);
-  }, [inputValue]);
+    else {
+      const filePath = `${inputValue}\\models\\${model}.bin`;
+
+      fetch(filePath)
+        .then(() => setWarningType(0))
+        .catch(() => {
+          setWarningType(2);
+        });
+    }
+  }, [inputValue, model]);
 
   useEffect(() => {
     overrideThemeVariables({
@@ -95,7 +103,7 @@ const Hello = () => {
   };
 
   const onStart = () => {
-    console.log(pathToBinary);
+    if (warningType !== 0) return;
 
     setOutputImage(undefined);
     setIntermediate(true);
@@ -255,7 +263,7 @@ const Hello = () => {
             <Alert type="warning">
               {warningType === 1
                 ? "Path to Real-ESRGAN can not be empty!"
-                : "Other error"}
+                : `${model} not found, does it exist?`}
             </Alert>
           </>
         ) : (
